@@ -1,38 +1,55 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CyberSaathi - Hindi-English Cybersecurity Awareness Platform">
   <title>CyberSaathi | Learn Before You Click</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
 
+<body>
   <header class="navbar">
-    <div class="logo">🛡️ CyberSaathi</div>
+    <a class="logo" href="#home">🛡️ CyberSaathi</a>
+
     <nav>
       <a href="#home">Home</a>
       <a href="#learn">Learn</a>
       <a href="#quiz">Quiz</a>
+      <a href="#simulator">Simulator</a>
+      <a href="#help">Help</a>
+      <a href="#results">Results</a>
     </nav>
   </header>
 
   <main>
     <section id="home" class="hero">
-      <div>
+      <div class="hero-content">
         <p class="tag">Hindi-English Cyber Awareness Platform</p>
+
         <h1>Learn Before You Click.</h1>
+
         <p class="hero-text">
           Phishing, OTP fraud, weak passwords aur unsafe links ko simple language mein samjho.
         </p>
-        <a class="primary-btn" href="#learn">Start Learning</a>
+
+        <div class="hero-buttons">
+          <a class="primary-btn" href="#learn">Start Learning</a>
+          <a class="secondary-btn" href="#quiz">Take Quiz</a>
+        </div>
+
+        <p class="privacy-note">
+          🔒 We never ask for your real password, OTP, PIN or CVV.
+        </p>
       </div>
 
-      <div class="shield">🛡️</div>
+      <div class="hero-shield">🛡️</div>
     </section>
 
     <section id="learn" class="section">
+      <p class="section-label">LEARN</p>
       <h2>Stay Safe Online</h2>
+
       <p class="section-intro">
         Important cybersecurity topics ko short aur simple modules mein learn karo.
       </p>
@@ -74,39 +91,241 @@
         </article>
       </div>
 
-      <p id="tip-box" class="tip-box">
+      <div id="tip-box" class="tip-box">
         Kisi topic par Read Tip click karo.
-      </p>
+      </div>
     </section>
 
     <section id="quiz" class="section quiz-section">
+      <p class="section-label">TEST YOURSELF</p>
       <h2>Cyber Safety Quiz</h2>
+
       <p class="section-intro">
-        Check karo tum suspicious situations ko kitna accurately identify karte ho.
+        Name enter karke quiz start karo. Score, correct answers aur time result mein show hoga.
       </p>
 
-      <div id="quiz-box" class="quiz-box">
+      <div id="student-box" class="student-box">
+        <label for="student-name">Student Name</label>
+
+        <input
+          id="student-name"
+          type="text"
+          maxlength="40"
+          placeholder="Apna naam enter karo"
+        >
+
+        <p class="input-note">
+          Phone number, email, password ya koi sensitive information enter mat karo.
+        </p>
+
+        <button id="start-quiz-btn" class="primary-btn" type="button">
+          Start Quiz
+        </button>
+      </div>
+
+      <div id="quiz-box" class="quiz-box hidden">
         <p id="question-number"></p>
         <h3 id="question"></h3>
+
         <div id="options"></div>
+
         <button id="next-btn" class="primary-btn" type="button">
           Next Question
         </button>
+
         <p id="feedback"></p>
       </div>
 
       <div id="result-box" class="result-box hidden">
+        <div class="result-icon">🏆</div>
+
         <h3 id="result-title"></h3>
+
+        <div class="result-details">
+          <p><strong>Student:</strong> <span id="result-name"></span></p>
+          <p><strong>Correct Answers:</strong> <span id="result-correct"></span></p>
+          <p><strong>Wrong Answers:</strong> <span id="result-wrong"></span></p>
+          <p><strong>Score:</strong> <span id="result-percentage"></span></p>
+          <p><strong>Time Taken:</strong> <span id="result-time"></span></p>
+        </div>
+
         <p id="result-text"></p>
+
+        <div class="score-bar">
+          <div id="score-fill"></div>
+        </div>
+
         <button id="restart-btn" class="primary-btn" type="button">
           Try Again
         </button>
       </div>
     </section>
+
+    <section id="simulator" class="section simulator-section">
+      <p class="section-label">PRACTICE</p>
+      <h2>Phishing Simulator</h2>
+
+      <p class="section-intro">
+        Fictional messages ko check karo. Real OTP, password ya personal information kabhi enter mat karo.
+      </p>
+
+      <div class="message-card">
+        <p id="scenario-number" class="message-label"></p>
+
+        <div class="fake-message">
+          <p><strong>From:</strong> <span id="message-sender"></span></p>
+          <p><strong>Message:</strong></p>
+          <p id="message-content"></p>
+        </div>
+
+        <p class="question-text">Is this message safe or suspicious?</p>
+
+        <div class="simulator-buttons">
+          <button class="safe-btn" onclick="checkPhishing('safe')">
+            ✅ Safe
+          </button>
+
+          <button class="suspicious-btn" onclick="checkPhishing('suspicious')">
+            ⚠️ Suspicious
+          </button>
+        </div>
+
+        <div id="simulator-result" class="simulator-result">
+          Choose an answer to see the explanation.
+        </div>
+
+        <div class="simulator-actions">
+          <button class="primary-btn" onclick="nextScenario()">
+            Next Scenario
+          </button>
+
+          <button class="outline-btn" onclick="resetSimulator()">
+            Reset
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section id="password" class="section password-section">
+      <p class="section-label">CHECK SAFETY</p>
+      <h2>Password Safety Check</h2>
+
+      <p class="section-intro">
+        Real password mat enter karo. Demo ke liye sample password use karo.
+      </p>
+
+      <div class="password-box">
+        <input
+          id="password-input"
+          type="password"
+          placeholder="Enter a sample password"
+          oninput="checkPassword()"
+        >
+
+        <div class="password-meter">
+          <div id="password-fill"></div>
+        </div>
+
+        <p id="password-result">
+          Password strength yahan show hogi.
+        </p>
+
+        <ul>
+          <li>At least 12 characters use karo.</li>
+          <li>Uppercase, lowercase, number aur symbol add karo.</li>
+          <li>Personal information avoid karo.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="help" class="section emergency-section">
+      <p class="section-label">NEED HELP?</p>
+      <h2>If You Think You Got Scammed</h2>
+
+      <div class="steps">
+        <div class="step">
+          <span>1</span>
+          <div>
+            <h3>Stop communication</h3>
+            <p>Scammer ko reply mat karo aur suspicious link dobara open mat karo.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <span>2</span>
+          <div>
+            <h3>Secure your account</h3>
+            <p>Password change karo aur affected account par MFA enable karo.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <span>3</span>
+          <div>
+            <h3>Contact official support</h3>
+            <p>Bank, payment app ya service ki official website/app se contact karo.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <span>4</span>
+          <div>
+            <h3>Save evidence and report</h3>
+            <p>Screenshots, numbers aur transaction details save karke official authority ko report karo.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="results" class="section results-section">
+      <p class="section-label">PERFORMANCE</p>
+      <h2>Quiz Performance</h2>
+
+      <p class="section-intro">
+        Is browser par diye gaye quiz attempts yahan save honge.
+      </p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Name</th>
+              <th>Correct</th>
+              <th>Wrong</th>
+              <th>Score</th>
+              <th>Time</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+
+          <tbody id="results-body">
+            <tr>
+              <td colspan="7">Abhi koi result available nahi hai.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="result-actions">
+        <button class="primary-btn" onclick="downloadResults()">
+          Download CSV
+        </button>
+
+        <button class="outline-btn" onclick="clearResults()">
+          Clear Results
+        </button>
+      </div>
+
+      <p class="privacy-note">
+        Results sirf isi browser mein save hote hain. Online common leaderboard ke liye Firebase add karna hoga.
+      </p>
+    </section>
   </main>
 
   <footer>
-    <p>CyberSaathi © 2026 | Never share your OTP, PIN, CVV or password. create by Jatin mishra & team </p>
+    <p>CyberSaathi © 2026 | Developed by Jatinmishra</p>
+    <p>Educational purpose only. Never share your OTP, PIN, CVV or password.</p>
   </footer>
 
   <script src="script.js"></script>
